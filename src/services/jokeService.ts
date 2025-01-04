@@ -1,30 +1,29 @@
 import { useEffect } from "react";
 
-import { useAllJokesQuery } from "../api.ts";
 import { appDispatch, appSelector } from "../store.ts";
-import { loadingFinished, selectJoke, viewJoke } from "./jokeSlice.ts";
+import {
+  apiLoad,
+  selectAllJokes,
+  selectDisplayedJoke,
+  selectJoke,
+  selectJokesLoading,
+  viewJoke,
+} from "./jokeSlice.ts";
 import { JokeServiceType } from "./types.ts";
 
 export const useJokes = (): JokeServiceType => {
   const dispatch = appDispatch();
 
-  const { data, isLoading } = useAllJokesQuery();
+  const isLoading = appSelector(selectJokesLoading);
 
   useEffect(() => {
-    if (isLoading) return;
-    if (data) dispatch(loadingFinished(data));
-  }, [isLoading, data]);
+    dispatch(apiLoad());
+  }, [dispatch, isLoading]);
 
   return {
-    isLoading: appSelector((state) => state.jokes.isLoading),
-    displayedJoke: appSelector((state) => {
-      const joke = state.jokes.jokes.find(
-        (joke) => joke.id == state.jokes.displayedJokeId,
-      );
-      if (!joke) return null;
-      return joke;
-    }),
-    jokes: appSelector((state) => state.jokes.jokes),
+    isLoading: isLoading,
+    displayedJoke: appSelector(selectDisplayedJoke),
+    jokes: appSelector(selectAllJokes),
     selectJoke: (jokeId) => {
       dispatch(selectJoke(jokeId));
     },

@@ -1,9 +1,10 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { ApiJoke } from "../server/jokes.ts";
+import { jokesApi } from "../api.ts";
+import { RootState } from "../store.ts";
 import { Joke } from "./types.ts";
 
-type JokeState = {
+export type JokeState = {
   isLoading: boolean;
   jokes: Joke[];
   displayedJokeId: number | null;
@@ -14,6 +15,16 @@ const initialState: JokeState = {
   jokes: [],
   displayedJokeId: null,
 };
+
+export const apiLoad = createAsyncThunk(
+  "jokes/initialLoading",
+  async (_, thunkAPI) => {
+    const dispatch = thunkAPI.dispatch;
+    const promise = dispatch(jokesApi.endpoints.allJokes.initiate());
+    const { data } = await promise;
+    return data ? data : [];
+  },
+);
 
 export const jokeSlice = createSlice({
   name: "jokes",
@@ -28,15 +39,29 @@ export const jokeSlice = createSlice({
     selectJoke: (state, action: PayloadAction<number | null>) => {
       state.displayedJokeId = action.payload;
     },
-    loadingFinished: (state, action: PayloadAction<ApiJoke[]>) => {
+  },
+  extraReducers: (builder) => {
+    builder.addCase(apiLoad.fulfilled, (state, action) => {
       state.jokes = action.payload.map((joke) => {
         return { ...joke, isDisplayed: false };
       });
       state.isLoading = false;
-    },
+    });
   },
 });
 
+export const selectJokesLoading = (state: RootState) => state.jokes.isLoading;
+
+export const selectDisplayedJoke = (state: RootState) => {
+  const joke = state.jokes.jokes.find(
+    (joke) => joke.id == state.jokes.displayedJokeId,
+  );
+  if (!joke) return null;
+  return joke;
+};
+
+export const selectAllJokes = (state: RootState) => state.jokes.jokes;
+
 // Action creators are generated for each case reducer function
-export const { viewJoke, selectJoke, loadingFinished } = jokeSlice.actions;
+export const { viewJoke, selectJoke } = jokeSlice.actions;
 export const jokeReducer = jokeSlice.reducer;
