@@ -1,22 +1,28 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CircularProgress,
-  List,
-  ListItem,
-} from "@mui/material";
+import { Card, CardContent, CardHeader } from "@mui/material";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 import { useAllJokesQuery } from "../api.ts";
 import { Joke } from "../server/jokes.ts";
 
-const AllJokes = ({ jokes }: { jokes: Joke[] }) => {
+type AllJokesProps = {
+  jokes: Joke[];
+  isLoading?: boolean;
+};
+
+const AllJokes = ({ jokes, isLoading = false }: AllJokesProps) => {
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "Id" },
+    { field: "type", headerName: "Type" },
+    { field: "setup", headerName: "Setup" },
+  ];
   return (
-    <List>
-      {jokes.map((joke) => (
-        <ListItem>{joke.id}</ListItem>
-      ))}
-    </List>
+    <DataGrid
+      columns={columns}
+      rows={jokes}
+      loading={isLoading}
+      pageSizeOptions={[5, 10]}
+      initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
+    />
   );
 };
 
@@ -27,13 +33,7 @@ export const Jokes = () => {
     <Card>
       <CardHeader title="jokes" />
       <CardContent>
-        {isLoading && <CircularProgress />}
-        {jokes && (
-          <>
-            There is {jokes.length} jokes
-            <AllJokes jokes={jokes} />
-          </>
-        )}
+        <AllJokes jokes={jokes ? jokes : []} isLoading={isLoading} />
       </CardContent>
     </Card>
   );
