@@ -19,9 +19,9 @@ const initialState: JokeState = {
 export const apiLoad = createAsyncThunk(
   "jokes/initialLoading",
   async (_, thunkAPI) => {
-    const dispatch = thunkAPI.dispatch;
-    const promise = dispatch(jokesApi.endpoints.allJokes.initiate());
-    const { data } = await promise;
+    const { data } = await thunkAPI.dispatch(
+      jokesApi.endpoints.allJokes.initiate(),
+    );
     return data ? data : [];
   },
 );
