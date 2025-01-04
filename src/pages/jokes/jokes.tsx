@@ -1,11 +1,11 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 
-import { useImmerJokes } from "../../services/immer-service.ts";
+import { useJokes } from "../../services/jokeService.ts";
 import { AllJokes } from "./allJokes.tsx";
 import { JokeContent } from "./jokeContent.tsx";
 
 export const Jokes = () => {
-  const jokes = useImmerJokes();
+  const jokes = useJokes();
 
   return (
     <>
