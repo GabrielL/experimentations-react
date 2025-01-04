@@ -1,9 +1,15 @@
 import { useMemo, useState } from "react";
 
+import ComputerIcon from "@mui/icons-material/Computer";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
+import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
 import {
   Box,
   Card,
+  CardActionArea,
   CardContent,
+  CardHeader,
   Container,
   Stack,
   Typography,
@@ -55,13 +61,50 @@ const AllJokes = ({
 const findJoke = (jokes: Joke[], jokeId: number | null) =>
   jokes.find((joke) => joke.id == jokeId);
 
+type JokeIconProps = {
+  joke: Joke;
+};
+
+const JokeIcon = ({ joke }: JokeIconProps) => {
+  switch (joke.type) {
+    case "general":
+      return <PsychologyAltIcon />;
+    case "knock-knock":
+      return <MeetingRoomIcon />;
+    case "programming":
+      return <ComputerIcon />;
+  }
+};
+
 type JokeContentProps = {
   joke: Joke | undefined;
 };
 
 const JokeContent = ({ joke }: JokeContentProps) => {
+  const [displayJoke, setDisplayJoke] = useState(false);
   if (!joke) return <>No Joke displayed</>;
-  return <>{JSON.stringify(joke)}</>;
+  return (
+    <>
+      <Card>
+        <CardActionArea
+          onClick={() => {
+            setDisplayJoke((prev) => !prev);
+          }}
+        >
+          <CardHeader avatar={<JokeIcon joke={joke} />} title={joke.setup} />
+          <CardContent sx={{ textAlign: "center" }}>
+            {displayJoke ? (
+              <Typography>{joke.punchline}</Typography>
+            ) : (
+              <Box sx={{ display: "flex", margin: "auto", width: "20%" }}>
+                <HelpOutlineIcon fontSize="large" />
+              </Box>
+            )}
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </>
+  );
 };
 
 export const Jokes = () => {
@@ -93,11 +136,9 @@ export const Jokes = () => {
             isLoading={isLoading}
             onSelect={onSelect}
           />
-          <Card sx={{ width: "50%" }}>
-            <CardContent>
-              <JokeContent joke={joke} />
-            </CardContent>
-          </Card>
+          <Box sx={{ width: "50%" }}>
+            <JokeContent joke={joke} />
+          </Box>
         </Stack>
       </Container>
     </>
