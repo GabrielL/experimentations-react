@@ -11,5 +11,20 @@ export default defineConfig({
       "@pages": path.resolve(__dirname, "./src/pages"),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            return "vendor";
+          }
+          if (id.includes("src/server")) {
+            return "server";
+          }
+        },
+      },
+    },
+  },
   plugins: [react()],
 });
