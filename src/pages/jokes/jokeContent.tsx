@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { Joke } from "../../services/jokes.ts";
+import { Joke } from "../../services/types.ts";
 import { JokeIcon } from "./jokeIcon.tsx";
 
 type JokeContentProps = {

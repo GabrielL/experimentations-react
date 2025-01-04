@@ -2,7 +2,7 @@ import ComputerIcon from "@mui/icons-material/Computer";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
 
-import { Joke } from "../../services/jokes.ts";
+import { Joke } from "../../services/types.ts";
 
 type JokeIconProps = {
   joke: Joke;

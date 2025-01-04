@@ -1,20 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { useAllJokesQuery } from "../api.ts";
-import { ApiJoke } from "../server/jokes.ts";
+import { Joke, JokeServiceType } from "./types.ts";
 
 const findJoke = (jokes: Joke[], jokeId: number | null) =>
   jokes.find((joke) => joke.id == jokeId);
-
-export type Joke = ApiJoke & { isDisplayed: boolean };
-
-interface JokeServiceType {
-  isLoading: boolean;
-  jokes: Joke[];
-  selectJoke: (jokeId: number | null) => void;
-  viewJoke: () => void;
-  displayedJoke: Joke | null;
-}
 
 export const useJokes = (): JokeServiceType => {
   const [jokes, setJokes] = useState<Joke[]>([]);
