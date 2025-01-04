@@ -4,7 +4,7 @@ import { jokesApi } from "../api.ts";
 import { RootState } from "../store.ts";
 import { Joke } from "./types.ts";
 
-export type JokeState = {
+type JokeState = {
   isLoading: boolean;
   jokes: Joke[];
   displayedJokeId: number | null;
@@ -26,7 +26,7 @@ export const apiLoad = createAsyncThunk(
   },
 );
 
-export const jokeSlice = createSlice({
+const jokeSlice = createSlice({
   name: "jokes",
   initialState: initialState,
   reducers: {
@@ -62,6 +62,5 @@ export const selectDisplayedJoke = (state: RootState) => {
 
 export const selectAllJokes = (state: RootState) => state.jokes.jokes;
 
-// Action creators are generated for each case reducer function
 export const { viewJoke, selectJoke } = jokeSlice.actions;
 export const jokeReducer = jokeSlice.reducer;

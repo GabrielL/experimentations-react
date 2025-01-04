@@ -15,4 +15,4 @@ export const jokesApi = createApi({
   }),
 });
 
-export const { useAllJokesQuery, useLazyAllJokesQuery } = jokesApi;
+export const { useAllJokesQuery } = jokesApi;

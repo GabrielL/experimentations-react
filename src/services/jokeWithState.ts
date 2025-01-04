@@ -6,7 +6,7 @@ import { Joke, JokeServiceType } from "./types.ts";
 const findJoke = (jokes: Joke[], jokeId: number | null) =>
   jokes.find((joke) => joke.id == jokeId);
 
-export const useJokes = (): JokeServiceType => {
+export const useStateJokes = (): JokeServiceType => {
   const [jokes, setJokes] = useState<Joke[]>([]);
   const [displayedJokeId, setDisplayedJokeId] = useState<number | null>(null);
 
