@@ -1,6 +1,6 @@
 import { Container, Paper, Typography } from "@mui/material";
 
-import { Jokes } from "./pages/jokes";
+import { Jokes } from "./pages/jokes/jokes.tsx";
 
 function App() {
   return (
