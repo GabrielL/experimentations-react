@@ -1,14 +1,14 @@
-import DraftsIcon from "@mui/icons-material/Drafts";
-import MarkunreadIcon from "@mui/icons-material/Markunread";
-import { Box, useTheme } from "@mui/material";
+import { Drafts, Markunread } from "@mui/icons-material";
+import { Box } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 import { Joke } from "@services/types.ts";
 
 const ReadIcon = ({ viewed = false }) => {
   const theme = useTheme();
-  if (viewed) return <DraftsIcon htmlColor={theme.palette.success.main} />;
-  else return <MarkunreadIcon />;
+  if (viewed) return <Drafts htmlColor={theme.palette.success.main} />;
+  else return <Markunread />;
 };
 
 type AllJokesProps = {
