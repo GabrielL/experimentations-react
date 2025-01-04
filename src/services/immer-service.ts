@@ -1,8 +1,7 @@
 import { produce } from "immer";
 import { useEffect, useMemo, useReducer } from "react";
 
-import { useAllJokesQuery } from "@/api.ts";
-import { ApiJoke } from "@/server/jokes.ts";
+import { ApiJoke, useAllJokesQuery } from "@/api.ts";
 
 import { Joke, JokeServiceType } from "@services/types.ts";
 
