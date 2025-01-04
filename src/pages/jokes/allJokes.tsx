@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
-import { Joke } from "../../server/jokes.ts";
+import { Joke } from "../../services/jokes.ts";
 
 type AllJokesProps = {
   jokes: Joke[];
@@ -22,7 +22,6 @@ export const AllJokes = ({
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "60%" }}>
       <DataGrid
-        checkboxSelection
         disableMultipleRowSelection
         onRowSelectionModelChange={(row) => {
           if (row.length == 0) {

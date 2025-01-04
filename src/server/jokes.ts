@@ -1,6 +1,6 @@
 export type JokeType = "general" | "knock-knock" | "programming";
 
-export type Joke = {
+export type ApiJoke = {
   id: number;
   type: JokeType;
   setup: string;

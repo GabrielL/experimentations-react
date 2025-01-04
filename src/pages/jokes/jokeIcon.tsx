@@ -2,10 +2,10 @@ import ComputerIcon from "@mui/icons-material/Computer";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
 
-import { Joke } from "../../server/jokes.ts";
+import { ApiJoke } from "../../server/jokes.ts";
 
 type JokeIconProps = {
-  joke: Joke;
+  joke: ApiJoke;
 };
 
 export const JokeIcon = ({ joke }: JokeIconProps) => {

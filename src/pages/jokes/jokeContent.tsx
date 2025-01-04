@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import {
   Box,
@@ -10,27 +8,23 @@ import {
   Typography,
 } from "@mui/material";
 
-import { Joke } from "../../server/jokes.ts";
+import { Joke } from "../../services/jokes.ts";
 import { JokeIcon } from "./jokeIcon.tsx";
 
 type JokeContentProps = {
-  joke: Joke | undefined;
+  joke: Joke | null;
+  onDisplay: () => void;
 };
 
-export const JokeContent = ({ joke }: JokeContentProps) => {
-  const [displayJoke, setDisplayJoke] = useState(false);
+export const JokeContent = ({ joke, onDisplay }: JokeContentProps) => {
   if (!joke) return <>No Joke displayed</>;
   return (
     <>
       <Card>
-        <CardActionArea
-          onClick={() => {
-            setDisplayJoke((prev) => !prev);
-          }}
-        >
+        <CardActionArea onClick={onDisplay}>
           <CardHeader avatar={<JokeIcon joke={joke} />} title={joke.setup} />
           <CardContent sx={{ textAlign: "center" }}>
-            {displayJoke ? (
+            {joke.isDisplayed ? (
               <Typography>{joke.punchline}</Typography>
             ) : (
               <Box sx={{ display: "flex", margin: "auto", width: "20%" }}>
