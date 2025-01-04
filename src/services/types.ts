@@ -1,4 +1,4 @@
-import { ApiJoke } from "@/server/jokes.ts";
+import { ApiJoke } from "@/api";
 
 export type Joke = ApiJoke & { isDisplayed: boolean };
 

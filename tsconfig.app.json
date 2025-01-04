@@ -21,10 +21,11 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
+    "baseUrl": "src",
     "paths": {
-      "@/*": ["src/*"],
-      "@services/*": ["src/services/*"],
-      "@pages/*": ["src/pages/*"]
+      "@/*": ["*"],
+      "@services/*": ["services/*"],
+      "@pages/*": ["pages/*"]
     }
   },
   "include": ["src"]
