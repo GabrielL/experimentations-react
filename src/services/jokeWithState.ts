@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { useAllJokesQuery } from "../api.ts";
-import { Joke, JokeServiceType } from "./types.ts";
+import { useAllJokesQuery } from "@/api.ts";
+
+import { Joke, JokeServiceType } from "@services/types.ts";
 
 const findJoke = (jokes: Joke[], jokeId: number | null) =>
   jokes.find((joke) => joke.id == jokeId);

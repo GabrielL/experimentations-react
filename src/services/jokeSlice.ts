@@ -1,8 +1,9 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { jokesApi } from "../api.ts";
-import { RootState } from "../store.ts";
-import { Joke } from "./types.ts";
+import { jokesApi } from "@/api.ts";
+import { RootState } from "@/store.ts";
+
+import { Joke } from "@services/types.ts";
 
 type JokeState = {
   isLoading: boolean;

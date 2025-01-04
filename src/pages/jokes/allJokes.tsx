@@ -3,7 +3,7 @@ import MarkunreadIcon from "@mui/icons-material/Markunread";
 import { Box, useTheme } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
-import { Joke } from "../../services/types.ts";
+import { Joke } from "@services/types.ts";
 
 const ReadIcon = ({ viewed = false }) => {
   const theme = useTheme();

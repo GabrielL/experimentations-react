@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
-import { appDispatch, appSelector } from "../store.ts";
+import { appDispatch, appSelector } from "@/store.ts";
+
 import {
   apiLoad,
   selectAllJokes,
@@ -8,8 +9,8 @@ import {
   selectJoke,
   selectJokesLoading,
   viewJoke,
-} from "./jokeSlice.ts";
-import { JokeServiceType } from "./types.ts";
+} from "@services/jokeSlice.ts";
+import { JokeServiceType } from "@services/types.ts";
 
 export const useJokes = (): JokeServiceType => {
   const dispatch = appDispatch();

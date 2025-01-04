@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useReducer } from "react";
 
-import { useAllJokesQuery } from "../api.ts";
-import { ApiJoke } from "../server/jokes.ts";
-import { Joke, JokeServiceType } from "./types.ts";
+import { useAllJokesQuery } from "@/api.ts";
+import { ApiJoke } from "@/server/jokes.ts";
+
+import { Joke, JokeServiceType } from "@services/types.ts";
 
 type JokeAction = {
   type: "select" | "view" | "loadingFinished";

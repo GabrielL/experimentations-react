@@ -1,8 +1,9 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 
-import { useJokes } from "../../services/jokeService.ts";
-import { AllJokes } from "./allJokes.tsx";
-import { JokeContent } from "./jokeContent.tsx";
+import { AllJokes } from "@pages/jokes/allJokes.tsx";
+import { JokeContent } from "@pages/jokes/jokeContent.tsx";
+
+import { useJokes } from "@services/jokeService.ts";
 
 export const Jokes = () => {
   const jokes = useJokes();

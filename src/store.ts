@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
-import { jokesApi } from "./api";
-import { jokeReducer } from "./services/jokeSlice.ts";
+import { jokesApi } from "@/api.ts";
+import { jokeReducer } from "@/services/jokeSlice.ts";
 
 export const store = configureStore({
   reducer: {

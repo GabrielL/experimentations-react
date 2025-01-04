@@ -1,5 +1,13 @@
 {
-  "importOrder": ["^react/(.*)$", "^@reduxjs/(.*)$", "^@mui/(.*)$", "^[./]"],
+  "importOrder": [
+    "^react/(.*)$",
+    "^@reduxjs/(.*)$",
+    "^@mui/(.*)$",
+    "^@/(.*)$",
+    "^@pages/(.*)$",
+    "^@services/(.*)$",
+    "^[./]"
+  ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
 

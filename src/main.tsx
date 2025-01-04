@@ -4,10 +4,11 @@ import { Provider } from "react-redux";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
+import { enableMocking } from "@/server/mock.ts";
+import { store } from "@/store.ts";
+import { theme } from "@/theme.ts";
+
 import App from "./App.tsx";
-import { enableMocking } from "./server/mock.ts";
-import { store } from "./store.ts";
-import { theme } from "./theme.ts";
 
 enableMocking().then(() =>
   createRoot(document.getElementById("root")!).render(
