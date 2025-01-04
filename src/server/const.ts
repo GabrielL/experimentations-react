@@ -1,1 +1,1 @@
-export const BACKEND = "http://api.example.com";
+export const BACKEND = "https://api.sampleapis.com/jokes";

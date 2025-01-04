@@ -5,5 +5,5 @@ import jokes from "./jokes.json";
 
 export const handlers = [
   http.get(`${BACKEND}/`, () => HttpResponse.json({ status: "ok" })),
-  http.get(`${BACKEND}/jokes`, () => HttpResponse.json(jokes)),
+  http.get(`${BACKEND}/goodJokes`, () => HttpResponse.json(jokes)),
 ];

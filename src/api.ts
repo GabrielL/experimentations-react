@@ -9,7 +9,7 @@ export const jokesApi = createApi({
   tagTypes: ["jokes"],
   endpoints: (builder) => ({
     allJokes: builder.query<ApiJoke[], void>({
-      query: () => ({ url: "/jokes" }),
+      query: () => ({ url: "/goodJokes" }),
       providesTags: ["jokes"],
     }),
   }),
