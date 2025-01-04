@@ -1,11 +1,11 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 
-import { useJokes } from "../../services/jokes.ts";
+import { useNativeJokes } from "../../services/native-service.ts";
 import { AllJokes } from "./allJokes.tsx";
 import { JokeContent } from "./jokeContent.tsx";
 
 export const Jokes = () => {
-  const jokes = useJokes();
+  const jokes = useNativeJokes();
 
   return (
     <>
