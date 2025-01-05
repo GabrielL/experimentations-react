@@ -5,11 +5,13 @@ import { ApiJoke, useAllJokesQuery } from "@/api.ts";
 
 import { Joke, JokeServiceType } from "@services/types.ts";
 
-type JokeAction = {
-  type: "select" | "view" | "loadingFinished";
-  jokeId: number | null;
-  jokes?: ApiJoke[];
-};
+type Action<Name, T> = { type: Name; payload: T };
+type VoidAction<Name> = { type: Name };
+
+type JokeAction =
+  | Action<"select", { jokeId: number | null }>
+  | VoidAction<"view">
+  | Action<"loadingFinished", { jokes: ApiJoke[] }>;
 
 type JokeState = {
   isLoading: boolean;
@@ -52,41 +54,34 @@ function jokeReducer(state: JokeState, action: JokeAction): JokeState {
     case "view":
       return onView(state);
     case "select":
-      return onSelect(state, action.jokeId);
+      return onSelect(state, action.payload.jokeId);
     case "loadingFinished":
-      if (!action.jokes) return state;
-      return onLoadingFinished(state, action.jokes);
+      if (!action.payload.jokes) return state;
+      return onLoadingFinished(state, action.payload.jokes);
   }
 }
-
-const findJoke = (jokes: Joke[], jokeId: number | null) =>
-  jokes.find((joke) => joke.id == jokeId);
 
 export const useImmerJokes = (): JokeServiceType => {
   const [state, dispatch] = useReducer(jokeReducer, initialState);
 
   const displayedJoke = useMemo(() => {
-    const joke = findJoke(state.jokes, state.displayedJokeId);
-    if (!joke) return null;
-    return joke;
+    const joke = state.jokes.find((joke) => joke.id == state.displayedJokeId);
+    return joke ? joke : null;
   }, [state]);
 
   const { data, isLoading } = useAllJokesQuery();
 
   useEffect(() => {
     if (isLoading) return;
-    dispatch({ type: "loadingFinished", jokes: data, jokeId: null });
+    if (data) dispatch({ type: "loadingFinished", payload: { jokes: data } });
   }, [isLoading, data]);
 
   return {
     isLoading: state.isLoading,
     displayedJoke: displayedJoke,
     jokes: state.jokes,
-    selectJoke: (jokeId) => {
-      dispatch({ type: "select", jokeId: jokeId });
-    },
-    viewJoke: () => {
-      dispatch({ type: "view", jokeId: state.displayedJokeId });
-    },
+    selectJoke: (jokeId) =>
+      dispatch({ type: "select", payload: { jokeId: jokeId } }),
+    viewJoke: () => dispatch({ type: "view" }),
   };
 };
