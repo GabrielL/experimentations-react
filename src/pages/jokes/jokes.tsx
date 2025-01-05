@@ -3,10 +3,10 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import { AllJokes } from "@pages/jokes/allJokes.tsx";
 import { JokeContent } from "@pages/jokes/jokeContent.tsx";
 
-import { useContextReduxJokes } from "@services/redux-local-store/jokeService.ts";
+import { useJokes } from "@services/jokeService.ts";
 
 export const Jokes = () => {
-  const jokes = useContextReduxJokes();
+  const jokes = useJokes();
 
   return (
     <>
