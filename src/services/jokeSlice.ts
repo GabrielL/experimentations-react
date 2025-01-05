@@ -28,7 +28,7 @@ export const apiLoad = createAsyncThunk(
     const { data } = await thunkAPI.dispatch(
       jokesApi.endpoints.allJokes.initiate(),
     );
-    return data ? data : [];
+    return data || [];
   },
 );
 
@@ -68,7 +68,7 @@ export const selectDisplayedJoke = createSelector(
   jokesState,
   (state: JokeState) => {
     const joke = state.jokes.find((joke) => joke.id == state.displayedJokeId);
-    return joke ? joke : null;
+    return joke || null;
   },
 );
 

@@ -46,7 +46,7 @@ const allJokes = (state: JokeState) => state.jokes;
 
 const displayedJoke = (state: JokeState) => {
   const joke = state.jokes.find((joke) => joke.id == state.displayedJokeId);
-  return joke ? joke : null;
+  return joke || null;
 };
 
 export const useContextReduxJokes = (): JokeServiceType => {

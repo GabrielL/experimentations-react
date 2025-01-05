@@ -25,7 +25,11 @@ export const useJokes = (): JokeServiceType => {
     isLoading: isLoading,
     displayedJoke: appSelector(selectDisplayedJoke),
     jokes: appSelector(selectAllJokes),
-    selectJoke: (jokeId) => dispatch(selectJoke(jokeId)),
-    viewJoke: () => dispatch(viewJoke()),
+    selectJoke(jokeId) {
+      dispatch(selectJoke(jokeId));
+    },
+    viewJoke() {
+      dispatch(viewJoke());
+    },
   };
 };

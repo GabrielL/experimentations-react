@@ -36,8 +36,14 @@ export const useStateJokes = (): JokeServiceType => {
   return {
     isLoading: isLoading,
     jokes: jokes,
-    selectJoke: (jokeId: number | null) => setDisplayedJokeId(jokeId),
     displayedJoke: displayedJoke,
-    viewJoke: () => (displayedJokeId ? viewJoke(displayedJokeId) : null),
+    selectJoke(jokeId: number | null) {
+      setDisplayedJokeId(jokeId);
+    },
+    viewJoke() {
+      if (displayedJokeId) {
+        viewJoke(displayedJokeId);
+      }
+    },
   };
 };

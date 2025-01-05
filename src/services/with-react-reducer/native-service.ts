@@ -56,7 +56,7 @@ export const useNativeJokes = (): JokeServiceType => {
 
   const displayedJoke = useMemo(() => {
     const joke = state.jokes.find((joke) => joke.id == state.displayedJokeId);
-    return joke ? joke : null;
+    return joke || null;
   }, [state]);
 
   const { data, isLoading } = useAllJokesQuery();
@@ -70,10 +70,10 @@ export const useNativeJokes = (): JokeServiceType => {
     isLoading: state.isLoading,
     displayedJoke: displayedJoke,
     jokes: state.jokes,
-    selectJoke: (jokeId) => {
+    selectJoke(jokeId) {
       dispatch({ type: "select", payload: { jokeId: jokeId } });
     },
-    viewJoke: () => {
+    viewJoke() {
       dispatch({ type: "view" });
     },
   };

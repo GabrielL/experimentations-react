@@ -56,7 +56,6 @@ function jokeReducer(state: JokeState, action: JokeAction): JokeState {
     case "select":
       return onSelect(state, action.payload.jokeId);
     case "loadingFinished":
-      if (!action.payload.jokes) return state;
       return onLoadingFinished(state, action.payload.jokes);
   }
 }
@@ -66,7 +65,7 @@ export const useImmerJokes = (): JokeServiceType => {
 
   const displayedJoke = useMemo(() => {
     const joke = state.jokes.find((joke) => joke.id == state.displayedJokeId);
-    return joke ? joke : null;
+    return joke || null;
   }, [state]);
 
   const { data, isLoading } = useAllJokesQuery();
@@ -80,8 +79,11 @@ export const useImmerJokes = (): JokeServiceType => {
     isLoading: state.isLoading,
     displayedJoke: displayedJoke,
     jokes: state.jokes,
-    selectJoke: (jokeId) =>
-      dispatch({ type: "select", payload: { jokeId: jokeId } }),
-    viewJoke: () => dispatch({ type: "view" }),
+    selectJoke(jokeId) {
+      dispatch({ type: "select", payload: { jokeId: jokeId } });
+    },
+    viewJoke() {
+      dispatch({ type: "view" });
+    },
   };
 };
