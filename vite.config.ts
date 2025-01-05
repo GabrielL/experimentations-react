@@ -21,6 +21,7 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
+      treeshake: true,
       output: {
         manualChunks(id) {
           if (id.includes("node_modules")) {
