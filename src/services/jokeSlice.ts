@@ -1,4 +1,9 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+} from "@reduxjs/toolkit";
 
 import { jokesApi } from "@/api.ts";
 import { RootState } from "@/store.ts";
@@ -51,17 +56,23 @@ const jokeSlice = createSlice({
   },
 });
 
-export const selectJokesLoading = (state: RootState) => state.jokes.isLoading;
+const jokesState = (state: RootState) => state.jokes;
+const allJokes = (state: JokeState) => state.jokes;
 
-export const selectDisplayedJoke = (state: RootState) => {
-  const joke = state.jokes.jokes.find(
-    (joke) => joke.id == state.jokes.displayedJokeId,
-  );
-  if (!joke) return null;
-  return joke;
-};
+export const selectJokesLoading = createSelector(
+  jokesState,
+  (state: JokeState) => state.isLoading,
+);
 
-export const selectAllJokes = (state: RootState) => state.jokes.jokes;
+export const selectDisplayedJoke = createSelector(
+  jokesState,
+  (state: JokeState) => {
+    const joke = state.jokes.find((joke) => joke.id == state.displayedJokeId);
+    return joke ? joke : null;
+  },
+);
+
+export const selectAllJokes = createSelector(jokesState, allJokes);
 
 export const { viewJoke, selectJoke } = jokeSlice.actions;
 export const jokeReducer = jokeSlice.reducer;
