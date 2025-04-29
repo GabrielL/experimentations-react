@@ -1,9 +1,4 @@
-import {
-  PayloadAction,
-  createAsyncThunk,
-  createSelector,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit";
 
 import { jokesApi } from "@/api.ts";
 import { RootState } from "@/store.ts";
@@ -22,16 +17,6 @@ const initialState: JokeState = {
   displayedJokeId: null,
 };
 
-export const apiLoad = createAsyncThunk(
-  "jokes/initialLoading",
-  async (_, thunkAPI) => {
-    const { data } = await thunkAPI.dispatch(
-      jokesApi.endpoints.allJokes.initiate(),
-    );
-    return data || [];
-  },
-);
-
 const jokeSlice = createSlice({
   name: "jokes",
   initialState: initialState,
@@ -47,12 +32,15 @@ const jokeSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(apiLoad.fulfilled, (state, action) => {
-      state.jokes = action.payload.map((joke) => {
-        return { ...joke, isDisplayed: false };
-      });
-      state.isLoading = false;
-    });
+    builder.addMatcher(
+      jokesApi.endpoints.allJokes.matchFulfilled,
+      (state, action) => {
+        state.jokes = action.payload.map((joke) => {
+          return { ...joke, isDisplayed: false };
+        });
+        state.isLoading = false;
+      },
+    );
   },
 });
 

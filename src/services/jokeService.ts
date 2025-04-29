@@ -1,9 +1,7 @@
-import { useEffect } from "react";
-
+import { useAllJokesQuery } from "@/api.ts";
 import { appDispatch, appSelector } from "@/store.ts";
 
 import {
-  apiLoad,
   selectAllJokes,
   selectDisplayedJoke,
   selectJoke,
@@ -15,14 +13,11 @@ import { JokeServiceType } from "@services/types.ts";
 export const useJokes = (): JokeServiceType => {
   const dispatch = appDispatch();
 
-  const isLoading = appSelector(selectJokesLoading);
-
-  useEffect(() => {
-    dispatch(apiLoad());
-  }, [dispatch, isLoading]);
+  // trigger load
+  useAllJokesQuery();
 
   return {
-    isLoading: isLoading,
+    isLoading: appSelector(selectJokesLoading),
     displayedJoke: appSelector(selectDisplayedJoke),
     jokes: appSelector(selectAllJokes),
     selectJoke(jokeId) {
